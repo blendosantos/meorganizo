@@ -1,4 +1,4 @@
-package br.com.meorganizo.meorganizo
+package br.com.meorganizo
 
 import android.os.Bundle
 import io.flutter.app.FlutterActivity
