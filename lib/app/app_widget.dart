@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:meorganizo/app/modules/home/home_module.dart';
+import 'package:meorganizo/app/login/login/login_module.dart';
 
 class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Slidy',
+      title: 'Me Organizo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeModule(),
+      home: LoginModule(),
     );
   }
 }
