@@ -17,7 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter_svg: ^0.15.0
+  font_awesome_flutter: ^8.5.0
   hasura_connect: ^1.0.2
   bloc: ^2.0.0
   flutter_bloc: ^2.1.1
@@ -48,7 +48,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/img/
-    - assets/svg/login-topo.svg
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -73,3 +72,30 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato/Lato-Regular.ttf
+        - asset: assets/fonts/Lato/Lato-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Lato/Lato-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Lato/Lato-BlackItalic.ttf
+          style: italic
+          weight: 900
+        - asset: assets/fonts/Lato/Lato-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Lato/Lato-BoldItalic.ttf
+          style: italic
+          weight: 700
+        - asset: assets/fonts/Lato/Lato-Light.ttf
+          weight: 500
+        - asset: assets/fonts/Lato/Lato-LightItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Lato/Lato-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Lato/Lato-ThinItalic.ttf
+          weight: 100
+          style: italic

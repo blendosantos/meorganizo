@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meorganizo/app/login/login/login_module.dart';
+import 'package:meorganizo/shared/theme.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -8,7 +9,8 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Me Organizo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: CustomTheme.primaryColor,
+        fontFamily: "Lato"
       ),
       home: LoginModule(),
     );
