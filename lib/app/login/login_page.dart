@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meorganizo/app/login/login_bloc.dart';
+import 'package:meorganizo/app/login/login_module.dart';
 import 'package:meorganizo/shared/theme.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,6 +13,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final loginBloc = LoginModule.to.getBloc<LoginBloc>();
+
   bool _obscurePW = true;
 
   @override
@@ -35,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Positioned(
                   left: 15,
-                  top: height * 0.06,
+                  top: height * 0.07,
                   child: Text("Me Organizo",
                       style: TextStyle(
                           color: Colors.white,
@@ -48,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                           ])),
                 ),
                 Positioned(
-                  top: 25,
+                  top: height * 0.035,
                   right: 0,
                   child: Image.asset(
                     "assets/img/login-topo.png",
@@ -78,7 +82,8 @@ class _LoginPageState extends State<LoginPage> {
                               suffix: GestureDetector(
                                 child: (_obscurePW
                                     ? Icon(FontAwesomeIcons.eyeSlash,
-                                        size: 20, color: CustomTheme.secondaryColor)
+                                        size: 20,
+                                        color: CustomTheme.secondaryColor)
                                     : Icon(FontAwesomeIcons.eye,
                                         size: 20,
                                         color: CustomTheme.secondaryColor)),
@@ -98,14 +103,15 @@ class _LoginPageState extends State<LoginPage> {
                         alignment: Alignment.centerRight,
                         child: FloatingActionButton(
                           backgroundColor: CustomTheme.primaryColor,
-                          onPressed: () {},
+                          onPressed: () {
+                            loginBloc.efetuarLogin("blendo@outlook.co", "123456");
+                          },
                           child: Icon(FontAwesomeIcons.angleRight, size: 45),
                         ),
                       ),
                     ],
                   ),
                 ),
-
                 Positioned(
                   bottom: 50,
                   child: Container(

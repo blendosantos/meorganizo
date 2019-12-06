@@ -17,13 +17,11 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  font_awesome_flutter: ^8.5.0
-  hasura_connect: ^1.0.2
-  bloc: ^2.0.0
-  flutter_bloc: ^2.1.1
   dio: ^3.0.7
   rxdart: ^0.22.6
   bloc_pattern: ^2.5.1
+  font_awesome_flutter: ^8.5.0
+  hasura_connect: ^1.0.2
   flutter:
     sdk: flutter
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meorganizo/app/login/login/login_module.dart';
+import 'package:meorganizo/app/login/login_module.dart';
 import 'package:meorganizo/shared/theme.dart';
 
 class AppWidget extends StatelessWidget {
