@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meorganizo/app/home/home_module.dart';
 import 'package:meorganizo/app/login/login_bloc.dart';
 import 'package:meorganizo/app/login/login_module.dart';
+import 'package:meorganizo/model/Usuario.dart';
 import 'package:meorganizo/shared/theme.dart';
+import 'package:meorganizo/shared/util.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
@@ -13,9 +16,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final loginBloc = LoginModule.to.getBloc<LoginBloc>();
 
+  TextEditingController _emailField;
+  TextEditingController _pwField;
   bool _obscurePW = true;
+
+  @override
+  void initState() {
+    _emailField = TextEditingController();
+    _pwField = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,125 +36,140 @@ class _LoginPageState extends State<LoginPage> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Container(
-        width: width,
-        height: height,
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                ClipPath(
-                  clipper: ClipLogin(),
-                  child: Container(
-                    height: height / 2.5,
-                    color: CustomTheme.primaryColor,
+      key: _scaffoldKey,
+      body: SingleChildScrollView(
+        child: Container(
+          width: width,
+          height: height,
+          child: Column(
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  ClipPath(
+                    clipper: ClipLogin(),
+                    child: Container(
+                      height: height / 2.5,
+                      color: CustomTheme.primaryColor,
+                    ),
                   ),
-                ),
-                Positioned(
-                  left: 15,
-                  top: height * 0.07,
-                  child: Text("Me Organizo",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: width * 0.055,
-                          shadows: [
-                            Shadow(blurRadius: 30, color: Colors.white),
-                            Shadow(
-                                blurRadius: 15, color: CustomTheme.textColor),
-                          ])),
-                ),
-                Positioned(
-                  top: height * 0.035,
-                  right: 0,
-                  child: Image.asset(
-                    "assets/img/login-topo.png",
-                    width: height / 2.4,
+                  Positioned(
+                    left: 15,
+                    top: height * 0.07,
+                    child: Text("Me Organizo",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: width * 0.055,
+                            shadows: [
+                              Shadow(blurRadius: 30, color: Colors.white),
+                              Shadow(
+                                  blurRadius: 15, color: CustomTheme.textColor),
+                            ])),
                   ),
-                ),
-              ],
-            ),
-            Stack(
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
-                  height: height / 1.7,
-                  width: width,
-                  child: Column(
-                    children: <Widget>[
-                      TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                            hintText: "E-mail", icon: Icon(Icons.mail_outline)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: TextField(
-                          obscureText: _obscurePW,
-                          decoration: InputDecoration(
-                              suffix: GestureDetector(
-                                child: (_obscurePW
-                                    ? Icon(FontAwesomeIcons.eyeSlash,
-                                        size: 20,
-                                        color: CustomTheme.secondaryColor)
-                                    : Icon(FontAwesomeIcons.eye,
-                                        size: 20,
-                                        color: CustomTheme.secondaryColor)),
-                                onTap: () {
-                                  setState(() {
-                                    _obscurePW = _obscurePW ? false : true;
-                                  });
-                                },
-                              ),
-                              hintText: "Senha",
-                              icon: Icon(Icons.lock_outline)),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 30),
-                        width: width,
-                        alignment: Alignment.centerRight,
-                        child: FloatingActionButton(
-                          backgroundColor: CustomTheme.primaryColor,
-                          onPressed: () {
-                            loginBloc.efetuarLogin("blendo@outlook.co", "123456");
-                          },
-                          child: Icon(FontAwesomeIcons.angleRight, size: 45),
-                        ),
-                      ),
-                    ],
+                  Positioned(
+                    top: height * 0.035,
+                    right: 0,
+                    child: Image.asset(
+                      "assets/img/login-topo.png",
+                      width: height / 2.4,
+                    ),
                   ),
-                ),
-                Positioned(
-                  bottom: 50,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
+                ],
+              ),
+              Stack(
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
+                    height: height / 1.7,
                     width: width,
-                    child: Wrap(
-                      alignment: WrapAlignment.spaceBetween,
-                      crossAxisAlignment: WrapCrossAlignment.start,
+                    child: Column(
                       children: <Widget>[
-                        GestureDetector(
-                          child: Text("Cadastre-se",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w900,
-                                  decoration: TextDecoration.underline)),
-                          onTap: () {},
+                        TextField(
+                          controller: _emailField,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                              hintText: "E-mail", icon: Icon(Icons.mail_outline)),
                         ),
-                        GestureDetector(
-                          child: Text("Esqueceu a senha?",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w900,
-                                  decoration: TextDecoration.underline)),
-                          onTap: () {},
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: TextField(
+                            controller: _pwField,
+                            obscureText: _obscurePW,
+                            decoration: InputDecoration(
+                                suffix: GestureDetector(
+                                  child: (_obscurePW
+                                      ? Icon(FontAwesomeIcons.eyeSlash,
+                                          size: 20,
+                                          color: CustomTheme.secondaryColor)
+                                      : Icon(FontAwesomeIcons.eye,
+                                          size: 20,
+                                          color: CustomTheme.secondaryColor)),
+                                  onTap: () {
+                                    setState(() {
+                                      _obscurePW = _obscurePW ? false : true;
+                                    });
+                                  },
+                                ),
+                                hintText: "Senha",
+                                icon: Icon(Icons.lock_outline)),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 30),
+                          width: width,
+                          alignment: Alignment.centerRight,
+                          child: FloatingActionButton(
+                            backgroundColor: CustomTheme.primaryColor,
+                            onPressed: () async {
+                              Usuario user = await loginBloc.efetuarLogin(
+                                  _emailField.text, _pwField.text);
+
+                              if (user == null) {
+                                Util.showInSnackBar(_scaffoldKey,
+                                    loginBloc.msgController.value, false);
+                              } else {
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                  builder: (context) => HomeModule(), settings: RouteSettings(name: "/Home")
+                                ));
+                              }
+                            },
+                            child: Icon(FontAwesomeIcons.angleRight, size: 45),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                )
-              ],
-            ),
-          ],
+                  Positioned(
+                    bottom: 50,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      width: width,
+                      child: Wrap(
+                        alignment: WrapAlignment.spaceBetween,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        children: <Widget>[
+                          GestureDetector(
+                            child: Text("Cadastre-se",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    decoration: TextDecoration.underline)),
+                            onTap: () {},
+                          ),
+                          GestureDetector(
+                            child: Text("Esqueceu a senha?",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    decoration: TextDecoration.underline)),
+                            onTap: () {},
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

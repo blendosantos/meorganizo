@@ -3,7 +3,6 @@ import 'package:hasura_connect/hasura_connect.dart';
 import 'package:meorganizo/model/Usuario.dart';
 
 class LoginRepository extends Disposable {
-
   final HasuraConnect hasuraConnect;
 
   LoginRepository(this.hasuraConnect);
@@ -20,15 +19,15 @@ class LoginRepository extends Disposable {
       }
      """;
 
-     var result = await hasuraConnect.query(docQuery);
-     return Usuario.fromJson(result["data"]["usuarios"][0] ?? null);
+    var result = await hasuraConnect.query(docQuery);
+    Usuario user;
+    (result["data"]["usuarios"] as List).forEach((item) {
+      user = Usuario.fromJson(item);
+    });
+    return user;
   }
 
   //dispose will be called automatically
   @override
-  void dispose() {
-    
-  }
-
+  void dispose() {}
 }
-  
