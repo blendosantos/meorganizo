@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:meorganizo/app/home/home_module.dart';
 import 'package:meorganizo/app/login/login_bloc.dart';
 import 'package:meorganizo/app/login/login_module.dart';
+import 'package:meorganizo/app/tab/tab_module.dart';
 import 'package:meorganizo/model/Usuario.dart';
 import 'package:meorganizo/shared/theme.dart';
 import 'package:meorganizo/shared/util.dart';
@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                     loginBloc.msgController.value, false);
                               } else {
                                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                  builder: (context) => HomeModule(), settings: RouteSettings(name: "/Home")
+                                  builder: (context) => TabModule(), settings: RouteSettings(name: "/Home")
                                 ));
                               }
                             },
